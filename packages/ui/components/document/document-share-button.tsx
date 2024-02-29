@@ -160,7 +160,7 @@ export const DocumentShareButton = ({
                 },
               )}
             >
-              {shareLink?.slug && (
+              {shareLink && shareLink.slug && (
                 <img
                   src={`${NEXT_PUBLIC_WEBAPP_URL()}/share/${shareLink.slug}/opengraph`}
                   alt="sharing link"
