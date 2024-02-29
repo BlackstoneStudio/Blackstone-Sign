@@ -47,20 +47,10 @@ export const NoLongerAvailable = ({
           This document has been cancelled by the owner.
         </p>
 
-        {session?.user ? (
+        {session?.user && (
           <Link href="/documents" className="text-documenso-700 hover:text-documenso-600 mt-36">
             Go Back Home
           </Link>
-        ) : (
-          <p className="text-muted-foreground/60 mt-36 text-sm">
-            Want to send slick signing links like this one?{' '}
-            <Link
-              href="https://documenso.com"
-              className="text-documenso-700 hover:text-documenso-600"
-            >
-              Check out Documenso.
-            </Link>
-          </p>
         )}
       </div>
     </div>

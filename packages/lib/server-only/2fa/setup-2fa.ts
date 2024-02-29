@@ -15,7 +15,7 @@ type SetupTwoFactorAuthenticationOptions = {
   password: string;
 };
 
-const ISSUER = 'Documenso';
+const ISSUER = 'Blackstone Studio';
 
 export const setupTwoFactorAuthentication = async ({
   user,

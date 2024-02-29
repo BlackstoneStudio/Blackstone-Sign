@@ -29,7 +29,7 @@ const FOOTER_LINKS = [
   { href: '/open', text: 'Open Startup' },
   { href: 'https://shop.documenso.com', text: 'Shop', target: '_blank' },
   { href: 'https://status.documenso.com', text: 'Status', target: '_blank' },
-  { href: 'mailto:support@documenso.com', text: 'Support', target: '_blank' },
+  { href: 'mailto:support@blackstone.studio', text: 'Support', target: '_blank' },
   { href: '/oss-friends', text: 'OSS Friends' },
   { href: '/careers', text: 'Careers' },
   { href: '/privacy', text: 'Privacy' },

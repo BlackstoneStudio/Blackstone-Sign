@@ -38,7 +38,7 @@ export const MENU_NAVIGATION_LINKS = [
     text: 'Status',
   },
   {
-    href: 'mailto:support@documenso.com',
+    href: 'mailto:support@blackstone.studio',
     text: 'Support',
     target: '_blank',
   },

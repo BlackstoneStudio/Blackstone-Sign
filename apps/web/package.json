@@ -43,12 +43,15 @@
     "react-hotkeys-hook": "^4.4.1",
     "react-icons": "^4.11.0",
     "react-rnd": "^10.4.1",
+    "react-sticky-el": "^2.1.0",
     "remeda": "^1.27.1",
+    "sass": "^1.71.1",
     "sharp": "0.33.1",
     "ts-pattern": "^5.0.5",
     "typescript": "5.2.2",
     "ua-parser-js": "^1.0.37",
     "uqr": "^0.1.2",
+    "vanta": "^0.5.24",
     "zod": "^3.22.4"
   },
   "devDependencies": {

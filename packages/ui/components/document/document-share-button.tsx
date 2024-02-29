@@ -39,6 +39,7 @@ export const DocumentShareButton = ({
   className,
   trigger,
 }: DocumentShareButtonProps) => {
+  return null;
   const { toast } = useToast();
 
   const { copyShareLink, createAndCopyShareLink, isCopyingShareLink } = useCopyShareLink({

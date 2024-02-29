@@ -64,7 +64,14 @@ export default async function CompletedSigningPage({
   const isLoggedIn = !!sessionData?.user;
 
   return (
-    <div className="-mx-4 flex max-w-[100vw] flex-col items-center overflow-x-hidden px-4 pt-24 md:-mx-8 md:px-8 lg:pt-36 xl:pt-44">
+    <div className="-mx-4 flex max-w-[100vw] flex-col items-center overflow-hidden px-4 pt-24 md:-mx-8 md:px-8 lg:pt-36 xl:pt-44">
+      {/*<Image*/}
+      {/*  src={backgroundPattern}*/}
+      {/*  alt="background pattern"*/}
+      {/*  className="-mr-[50vw] -mt-[15vh] h-full scale-100 object-cover dark:contrast-[70%] dark:invert dark:sepia md:scale-100 lg:scale-[100%]"*/}
+      {/*  priority*/}
+      {/*/>*/}
+      {/*<VantaHero animation="topology" options={{ backgroundAlpha: 0, color: '#a2e771' }} />*/}
       {/* Card with recipient */}
       <SigningCard3D
         name={recipientName}
@@ -138,20 +145,10 @@ export default async function CompletedSigningPage({
           )}
         </div>
 
-        {isLoggedIn ? (
+        {isLoggedIn && (
           <Link href="/documents" className="text-documenso-700 hover:text-documenso-600 mt-36">
             Go Back Home
           </Link>
-        ) : (
-          <p className="text-muted-foreground/60 mt-36 text-sm">
-            Want to send slick signing links like this one?{' '}
-            <Link
-              href="https://documenso.com"
-              className="text-documenso-700 hover:text-documenso-600"
-            >
-              Check out Documenso.
-            </Link>
-          </p>
         )}
       </div>
     </div>

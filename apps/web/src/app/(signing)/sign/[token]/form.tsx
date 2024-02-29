@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 
 import { useSession } from 'next-auth/react';
 import { useForm } from 'react-hook-form';
+import Sticky from 'react-sticky-el';
 
 import { useAnalytics } from '@documenso/lib/client-only/hooks/use-analytics';
 import { sortFieldsByPosition, validateFieldsInserted } from '@documenso/lib/utils/fields';
@@ -79,134 +80,136 @@ export const SigningForm = ({ document, recipient, fields, redirectUrl }: Signin
   };
 
   return (
-    <form
-      className={cn(
-        'dark:bg-background border-border bg-widget sticky flex h-full flex-col rounded-xl border px-4 py-6',
-        {
-          'top-20 max-h-[min(68rem,calc(100vh-6rem))]': session,
-          'top-4 max-h-[min(68rem,calc(100vh-2rem))]': !session,
-        },
-      )}
-      onSubmit={handleSubmit(onFormSubmit)}
-    >
-      {validateUninsertedFields && uninsertedFields[0] && (
-        <FieldToolTip key={uninsertedFields[0].id} field={uninsertedFields[0]} color="warning">
-          Click to insert field
-        </FieldToolTip>
-      )}
-
-      <fieldset
-        disabled={isSubmitting}
+    <Sticky stickyStyle={{ top: 20 }}>
+      <form
         className={cn(
-          'custom-scrollbar -mx-2 flex flex-1 flex-col overflow-y-auto overflow-x-hidden px-2',
+          'dark:bg-background border-border bg-widget sticky flex flex-col rounded-xl border px-4 py-6',
+          {
+            'top-20 max-h-[min(68rem,calc(100vh-6rem))]': session,
+            'top-4 max-h-[min(68rem,calc(100vh-2rem))]': !session,
+          },
         )}
+        onSubmit={handleSubmit(onFormSubmit)}
       >
-        <div className={cn('flex flex-1 flex-col')}>
-          <h3 className="text-foreground text-2xl font-semibold">
-            {recipient.role === RecipientRole.VIEWER && 'View Document'}
-            {recipient.role === RecipientRole.SIGNER && 'Sign Document'}
-            {recipient.role === RecipientRole.APPROVER && 'Approve Document'}
-          </h3>
+        {validateUninsertedFields && uninsertedFields[0] && (
+          <FieldToolTip key={uninsertedFields[0].id} field={uninsertedFields[0]} color="warning">
+            Click to insert field
+          </FieldToolTip>
+        )}
 
-          {recipient.role === RecipientRole.VIEWER ? (
-            <>
-              <p className="text-muted-foreground mt-2 text-sm">
-                Please mark as viewed to complete
-              </p>
+        <fieldset
+          disabled={isSubmitting}
+          className={cn(
+            'custom-scrollbar -mx-2 flex flex-1 flex-col overflow-y-auto overflow-x-hidden px-2',
+          )}
+        >
+          <div className={cn('flex flex-1 flex-col')}>
+            <h3 className="text-foreground text-2xl font-semibold">
+              {recipient.role === RecipientRole.VIEWER && 'View Document'}
+              {recipient.role === RecipientRole.SIGNER && 'Sign Document'}
+              {recipient.role === RecipientRole.APPROVER && 'Approve Document'}
+            </h3>
 
-              <hr className="border-border mb-8 mt-4" />
+            {recipient.role === RecipientRole.VIEWER ? (
+              <>
+                <p className="text-muted-foreground mt-2 text-sm">
+                  Please mark as viewed to complete
+                </p>
 
-              <div className="-mx-2 flex flex-1 flex-col gap-4 overflow-y-auto px-2">
-                <div className="flex flex-1 flex-col gap-y-4" />
-                <div className="flex flex-col gap-4 md:flex-row">
-                  <Button
-                    type="button"
-                    className="dark:bg-muted dark:hover:bg-muted/80 w-full  bg-black/5 hover:bg-black/10"
-                    variant="secondary"
-                    size="lg"
-                    disabled={typeof window !== 'undefined' && window.history.length <= 1}
-                    onClick={() => router.back()}
-                  >
-                    Cancel
-                  </Button>
+                <hr className="border-border mb-8 mt-4" />
 
-                  <SignDialog
-                    isSubmitting={isSubmitting}
-                    onSignatureComplete={handleSubmit(onFormSubmit)}
-                    document={document}
-                    fields={fields}
-                    fieldsValidated={fieldsValidated}
-                    role={recipient.role}
-                  />
-                </div>
-              </div>
-            </>
-          ) : (
-            <>
-              <p className="text-muted-foreground mt-2 text-sm">
-                Please review the document before signing.
-              </p>
+                <div className="-mx-2 flex flex-1 flex-col gap-4 overflow-y-auto px-2">
+                  <div className="flex flex-1 flex-col gap-y-4" />
+                  <div className="flex flex-col gap-4 md:flex-row">
+                    <Button
+                      type="button"
+                      className="dark:bg-muted dark:hover:bg-muted/80 w-full  bg-black/5 hover:bg-black/10"
+                      variant="secondary"
+                      size="lg"
+                      disabled={typeof window !== 'undefined' && window.history.length <= 1}
+                      onClick={() => router.back()}
+                    >
+                      Cancel
+                    </Button>
 
-              <hr className="border-border mb-8 mt-4" />
-
-              <div className="-mx-2 flex flex-1 flex-col gap-4 overflow-y-auto px-2">
-                <div className="flex flex-1 flex-col gap-y-4">
-                  <div>
-                    <Label htmlFor="full-name">Full Name</Label>
-
-                    <Input
-                      type="text"
-                      id="full-name"
-                      className="bg-background mt-2"
-                      value={fullName}
-                      onChange={(e) => setFullName(e.target.value.trimStart())}
+                    <SignDialog
+                      isSubmitting={isSubmitting}
+                      onSignatureComplete={handleSubmit(onFormSubmit)}
+                      document={document}
+                      fields={fields}
+                      fieldsValidated={fieldsValidated}
+                      role={recipient.role}
                     />
                   </div>
+                </div>
+              </>
+            ) : (
+              <>
+                <p className="text-muted-foreground mt-2 text-sm">
+                  Please review the document before signing.
+                </p>
 
-                  <div>
-                    <Label htmlFor="Signature">Signature</Label>
+                <hr className="border-border mb-8 mt-4" />
 
-                    <Card className="mt-2" gradient degrees={-120}>
-                      <CardContent className="p-0">
-                        <SignaturePad
-                          className="h-44 w-full"
-                          disabled={isSubmitting}
-                          defaultValue={signature ?? undefined}
-                          onChange={(value) => {
-                            setSignature(value);
-                          }}
-                        />
-                      </CardContent>
-                    </Card>
+                <div className="-mx-2 flex flex-1 flex-col gap-4 overflow-y-auto px-2">
+                  <div className="flex flex-1 flex-col gap-y-4">
+                    <div>
+                      <Label htmlFor="full-name">Full Name</Label>
+
+                      <Input
+                        type="text"
+                        id="full-name"
+                        className="bg-background mt-2"
+                        value={fullName}
+                        onChange={(e) => setFullName(e.target.value.trimStart())}
+                      />
+                    </div>
+
+                    <div>
+                      <Label htmlFor="Signature">Signature</Label>
+
+                      <Card className="mt-2" gradient degrees={-120}>
+                        <CardContent className="p-0">
+                          <SignaturePad
+                            className="h-44 w-full"
+                            disabled={isSubmitting}
+                            defaultValue={signature ?? undefined}
+                            onChange={(value) => {
+                              setSignature(value);
+                            }}
+                          />
+                        </CardContent>
+                      </Card>
+                    </div>
+                  </div>
+
+                  <div className="flex flex-col gap-4 md:flex-row">
+                    <Button
+                      type="button"
+                      className="dark:bg-muted dark:hover:bg-muted/80 w-full  bg-black/5 hover:bg-black/10"
+                      variant="secondary"
+                      size="lg"
+                      disabled={typeof window !== 'undefined' && window.history.length <= 1}
+                      onClick={() => router.back()}
+                    >
+                      Cancel
+                    </Button>
+
+                    <SignDialog
+                      isSubmitting={isSubmitting}
+                      onSignatureComplete={handleSubmit(onFormSubmit)}
+                      document={document}
+                      fields={fields}
+                      fieldsValidated={fieldsValidated}
+                      role={recipient.role}
+                    />
                   </div>
                 </div>
-
-                <div className="flex flex-col gap-4 md:flex-row">
-                  <Button
-                    type="button"
-                    className="dark:bg-muted dark:hover:bg-muted/80 w-full  bg-black/5 hover:bg-black/10"
-                    variant="secondary"
-                    size="lg"
-                    disabled={typeof window !== 'undefined' && window.history.length <= 1}
-                    onClick={() => router.back()}
-                  >
-                    Cancel
-                  </Button>
-
-                  <SignDialog
-                    isSubmitting={isSubmitting}
-                    onSignatureComplete={handleSubmit(onFormSubmit)}
-                    document={document}
-                    fields={fields}
-                    fieldsValidated={fieldsValidated}
-                    role={recipient.role}
-                  />
-                </div>
-              </div>
-            </>
-          )}
-        </div>
-      </fieldset>
-    </form>
+              </>
+            )}
+          </div>
+        </fieldset>
+      </form>
+    </Sticky>
   );
 };

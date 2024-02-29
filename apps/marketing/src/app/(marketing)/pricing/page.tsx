@@ -169,9 +169,9 @@ export default function PricingPage() {
                 className="text-documenso-700 font-bold"
                 target="_blank"
                 rel="noreferrer"
-                href="mailto:support@documenso.com"
+                href="mailto:support@blackstone.studio"
               >
-                support@documenso.com
+                support@blackstone.studio
               </Link>{' '}
               or{' '}
               <a

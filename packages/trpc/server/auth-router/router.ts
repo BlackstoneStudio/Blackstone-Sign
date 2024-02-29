@@ -38,7 +38,7 @@ export const authRouter = router({
 
       return user;
     } catch (err) {
-      console.log(err);
+      console.log('Error creating user', err);
 
       const error = AppError.parseError(err);
 
