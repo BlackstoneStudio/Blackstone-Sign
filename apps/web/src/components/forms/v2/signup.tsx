@@ -113,7 +113,7 @@ export const SignUpFormV2 = ({
   const canContinue =
     form.formState.dirtyFields.name &&
     form.formState.errors.name === undefined &&
-    form.formState.dirtyFields.email &&
+    (form.formState.dirtyFields.email || initialEmail) &&
     form.formState.errors.email === undefined &&
     form.formState.dirtyFields.password &&
     form.formState.errors.password === undefined &&
