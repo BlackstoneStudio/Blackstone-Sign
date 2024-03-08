@@ -113,7 +113,7 @@ export const DeleteAccountDialog = ({ className, user }: DeleteAccountDialogProp
                   variant="destructive"
                   disabled={hasTwoFactorAuthentication}
                 >
-                  {isDeletingAccount ? 'Deleting account...' : 'Delete Account'}
+                  {isDeletingAccount ? 'Deleting account...' : 'Confirm Deletion'}
                 </Button>
               </DialogFooter>
             </DialogContent>
